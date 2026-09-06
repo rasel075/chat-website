@@ -2,6 +2,7 @@ package main
 
 import (
 	"chat-website/database"
+	"chat-website/routes"
 	"chat-website/utils"
 
 	"github.com/gin-gonic/gin"
@@ -17,6 +18,9 @@ func main() {
 
 	// Create a new Gin router
 	router := gin.Default()
+
+	// Setup all routes
+	routes.SetupRoutes(router, db)
 
 	// Define a simple GET endpoint for testing
 	router.GET("/", func(c *gin.Context) {
