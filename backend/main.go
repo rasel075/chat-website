@@ -1,10 +1,20 @@
 package main
 
 import (
+	"chat-website/database"
+	"chat-website/utils"
+
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	// Load environment variables from .env file
+	utils.LoadEnv()
+
+	// Initialize database connection
+	db := database.InitDB()
+	defer db.Close()
+
 	// Create a new Gin router
 	router := gin.Default()
 
