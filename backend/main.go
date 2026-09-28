@@ -5,6 +5,7 @@ import (
 	"chat-website/routes"
 	"chat-website/utils"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,6 +19,15 @@ func main() {
 
 	// Create a new Gin router
 	router := gin.Default()
+
+	// Configure CORS to allow Authorization header
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"}, // Allow all origins (development only)
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Content-Type", "Authorization"}, // Allow Authorization header
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+	}))
 
 	// Setup all routes
 	routes.SetupRoutes(router, db)
